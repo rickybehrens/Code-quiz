@@ -32,12 +32,31 @@
 //          *** Two buttons below everything, "Go Back" and "Clear Highscores"
 
 // Variable
+var startButton = document.getElementById('start-quiz');
+var timerElement = document.getElementById('timerId')
+var timeLeft = 0
+var timeInterval = ""
 
 
 // Function Definitions
+
+function countdown() {
+    timeLeft = 75
+    timerElement.textContent = 'Time: ' + timeLeft
+    clearInterval(timeInterval);
+
+    timeInterval = setInterval(function () {
+        if (timeLeft > 0) {
+            timerElement.textContent = 'Time: ' + timeLeft--
+        } else {
+            timerElement.textContent = 'Time: 0'
+        }
+    }, 100)
+
+}
 
 // Special Functions (like eventlisteners)
 
 // Business Logic (anything that can start the applications)
 
-startQuiz.addEventListener("click",)
+startButton.addEventListener("click", countdown);
