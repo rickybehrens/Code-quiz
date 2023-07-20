@@ -42,7 +42,7 @@ var containerElement = document.getElementById('container');
 // Function Definitions
 
 function changeContent() {
-    containerElement.textContent = ""
+    containerElement.textContent = "TEST TEXT"
     var ans01 = document.createElement('button');
     var ans02 = document.createElement('button');
     var ans03 = document.createElement('button');
