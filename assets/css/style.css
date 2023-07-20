@@ -34,7 +34,7 @@ button:active {
     border: #49dcfc solid 3px;
 }
 
-.container {
+#container {
     display: block;
     margin: 60px auto;
     text-align: center;
@@ -43,12 +43,12 @@ button:active {
     background-color: #eff5f8;
 }
 
-.container h1 {
+#container h1 {
     font-size: 250%;
     font-weight: bolder;
     padding: 2%;
 }
 
-.container h4 {
+#container h4 {
     font-size: 120%
 }

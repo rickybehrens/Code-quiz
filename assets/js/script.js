@@ -33,12 +33,31 @@
 
 // Variable
 var startButton = document.getElementById('start-quiz');
-var timerElement = document.getElementById('timerId')
-var timeLeft = 0
-var timeInterval = ""
-
+var timerElement = document.getElementById('timerId');
+var timeLeft = 0;
+var timeInterval = "";
+var questionsElement = document.getElementById('questions');
+var containerElement = document.getElementById('container');
 
 // Function Definitions
+
+function changeContent() {
+    containerElement.textContent = ""
+    var ans01 = document.createElement('button');
+    var ans02 = document.createElement('button');
+    var ans03 = document.createElement('button');
+    var ans04 = document.createElement('button');
+
+    ans01.textContent = "Blue Whale"
+    ans02.textContent = "Humpback Whale"
+    ans03.textContent = "Minke Whale"
+    ans04.textContent = "Sperm Whale"
+
+    questionsElement.appendChild(ans01);
+    questionsElement.appendChild(ans02);
+    questionsElement.appendChild(ans03);
+    questionsElement.appendChild(ans04);
+}
 
 function countdown() {
     timeLeft = 75
@@ -51,12 +70,17 @@ function countdown() {
         } else {
             timerElement.textContent = 'Time: 0'
         }
-    }, 100)
-
+    }, 100);
 }
+
 
 // Special Functions (like eventlisteners)
 
+startButton.addEventListener("click", function () {
+    countdown();
+    changeContent();
+});
+
 // Business Logic (anything that can start the applications)
 
-startButton.addEventListener("click", countdown);
+
