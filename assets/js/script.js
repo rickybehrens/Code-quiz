@@ -43,29 +43,49 @@ var containerElement = document.getElementById('container');
 
 function changeContent() {
     containerElement.textContent = ""
-    var title = document.createTextNode('h1')
-    var ans01 = document.createElement('button');
-    var ans02 = document.createElement('button');
-    var ans03 = document.createElement('button');
-    var ans04 = document.createElement('button');
-    
+    var title = document.createElement('h1')
+    var que01 = document.createElement('button');
+    var que02 = document.createElement('button');
+    var que03 = document.createElement('button');
+    var que04 = document.createElement('button');
+    var highscoresLink = ""
+    var rightWrong = document.getElementById('answer');
+
     title.textContent = 'Which is the largest whale species?'
-    ans01.textContent = "1. Blue Whale"
-    ans02.textContent = "2. Humpback Whale"
-    ans03.textContent = "3. Minke Whale"
-    ans04.textContent = "4. Sperm Whale"
-    
+    que01.textContent = "1. Blue Whale"
+    que02.textContent = "2. Humpback Whale"
+    que03.textContent = "3. Minke Whale"
+    que04.textContent = "4. Sperm Whale"
+
     questionsElement.appendChild(title);
-    questionsElement.appendChild(ans01);
-    questionsElement.appendChild(ans02);
-    questionsElement.appendChild(ans03);
-    questionsElement.appendChild(ans04);
-    
-    questionsElement.children[0].setAttribute("style", "color:blue");
-    questionsElement.children[1].setAttribute("style", "color:red");
-    questionsElement.children[2].setAttribute("style", "color:orange");
-    questionsElement.children[3].setAttribute("style", "color:pink");
-    
+    questionsElement.appendChild(que01);
+    questionsElement.appendChild(que02);
+    questionsElement.appendChild(que03);
+    questionsElement.appendChild(que04);
+
+    // if (highscoresLink) {
+    //     highscoresLink.remove();
+    // }
+    var ans01 = questionsElement.children[1]
+
+    ans01.addEventListener("click", function () {
+        ans01.setAttribute("style", "border:green solid 3px;");
+        timerElement.textContent = 'Time: ' + timeLeft
+        questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
+        rightWrong.textContent = "Correct!!!"
+        rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
+        timeInterval = setInterval(function () {
+            if (timeLeft > 0) {
+                timerElement.textContent = 'Time: ' + timeLeft
+            } else {
+                timerElement.textContent = 'Time: 0'
+            }
+        }, 0);
+        console.log(timeLeft)
+    })
+
+
+
 }
 
 function countdown() {
