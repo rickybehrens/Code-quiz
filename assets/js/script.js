@@ -42,21 +42,30 @@ var containerElement = document.getElementById('container');
 // Function Definitions
 
 function changeContent() {
-    containerElement.textContent = "TEST TEXT"
+    containerElement.textContent = ""
+    var title = document.createTextNode('h1')
     var ans01 = document.createElement('button');
     var ans02 = document.createElement('button');
     var ans03 = document.createElement('button');
     var ans04 = document.createElement('button');
-
-    ans01.textContent = "Blue Whale"
-    ans02.textContent = "Humpback Whale"
-    ans03.textContent = "Minke Whale"
-    ans04.textContent = "Sperm Whale"
-
+    
+    title.textContent = 'Which is the largest whale species?'
+    ans01.textContent = "1. Blue Whale"
+    ans02.textContent = "2. Humpback Whale"
+    ans03.textContent = "3. Minke Whale"
+    ans04.textContent = "4. Sperm Whale"
+    
+    questionsElement.appendChild(title);
     questionsElement.appendChild(ans01);
     questionsElement.appendChild(ans02);
     questionsElement.appendChild(ans03);
     questionsElement.appendChild(ans04);
+    
+    questionsElement.children[0].setAttribute("style", "color:blue");
+    questionsElement.children[1].setAttribute("style", "color:red");
+    questionsElement.children[2].setAttribute("style", "color:orange");
+    questionsElement.children[3].setAttribute("style", "color:pink");
+    
 }
 
 function countdown() {

@@ -52,3 +52,15 @@ button:active {
 #container h4 {
     font-size: 120%
 }
+
+#questions {
+    width: 50%;
+    margin-left: 300px;
+}
+
+#questions button {
+    display: block;
+    border-radius: 10px;
+    font-size: 100%;
+    margin: 3px;
+}
