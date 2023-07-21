@@ -27,7 +27,6 @@ button {
 
 button:hover {
     opacity: 80%;
-    /* border: blue solid  10px; */
 }
 
 button:active {

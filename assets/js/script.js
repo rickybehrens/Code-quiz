@@ -38,6 +38,7 @@ var timeLeft = 0;
 var timeInterval = "";
 var questionsElement = document.getElementById('questions');
 var containerElement = document.getElementById('container');
+var highscoresLink = document.getElementById('highscores')
 
 // Function Definitions
 
@@ -48,7 +49,6 @@ function changeContent() {
     var que02 = document.createElement('button');
     var que03 = document.createElement('button');
     var que04 = document.createElement('button');
-    var highscoresLink = ""
     var rightWrong = document.getElementById('answer');
 
     title.textContent = 'Which is the largest whale species?'
@@ -63,9 +63,6 @@ function changeContent() {
     questionsElement.appendChild(que03);
     questionsElement.appendChild(que04);
 
-    // if (highscoresLink) {
-    //     highscoresLink.remove();
-    // }
     var ans01 = questionsElement.children[1]
 
     ans01.addEventListener("click", function () {
@@ -74,14 +71,7 @@ function changeContent() {
         questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
         rightWrong.textContent = "Correct!!!"
         rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-        timeInterval = setInterval(function () {
-            if (timeLeft > 0) {
-                timerElement.textContent = 'Time: ' + timeLeft
-            } else {
-                timerElement.textContent = 'Time: 0'
-            }
-        }, 0);
-        console.log(timeLeft)
+        clearInterval(timeInterval);
     })
 
 
