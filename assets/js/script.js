@@ -42,6 +42,38 @@ var highscoresLink = document.getElementById('highscores')
 
 // Function Definitions
 
+// function correct() {
+//     ans01.setAttribute("style", "border:green solid 3px;");
+//     timerElement.textContent = 'Time: ' + timeLeft
+//     questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
+//     rightWrong.textContent = "Correct!!!"
+//     rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
+//     clearInterval(timeInterval);
+//     correctSound.play()
+// }
+
+// function incorrect() {
+//     ans01.setAttribute("style", "border:green solid 3px;");
+//     timeLeft = timeLeft - 15;
+//     timerElement.textContent = 'Time: ' + timeLeft;
+//     questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
+//     rightWrong.textContent = "Incorrect!!!"
+//     rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
+//     clearInterval(timeInterval);
+//     questionsElement.children[2].setAttribute("style", "border:red solid 3px;")
+//     incorrectSound.play()
+// }
+
+// index = 0
+// function validateAnswer(userAnswer) {
+//     var correctAnswer = questions[index].answer
+//     if (userAnswer === correctAnswer) {
+//         correct();
+//     } else {
+//         incorrect();
+//     }
+// }
+
 function changeContent() {
     containerElement.textContent = ""
     var title = document.createElement('h1')
@@ -51,11 +83,41 @@ function changeContent() {
     var que04 = document.createElement('button');
     var rightWrong = document.getElementById('answer');
 
-    title.textContent = 'Question #1: Which is the largest whale species?'
-    que01.textContent = "1. Blue Whale"
-    que02.textContent = "2. Humpback Whale"
-    que03.textContent = "3. Minke Whale"
-    que04.textContent = "4. Sperm Whale"
+    var questions = [
+        {
+            title: 'Question #1: What is the largest whale species?',
+            choices: ['Blue Whale', 'Humpback Whale', 'Minke Whale', 'Sperm Whale'],
+            answer: 'Blue Whale',
+        },
+        {
+            title: 'Question #2: What is the fastest whale species?',
+            choices: ['Minke Whale', 'Sei Whale', 'Cuviers Beaked Whale', 'Sperm Whale'],
+            answer: 'Sei Whale',
+        },
+        {
+            title: 'Question #3: What whale species can dive the deepest?',
+            choices: ['Sperm Whale', 'Humpback Whale', 'Sei Whale', 'Cuviers Beaked Whale'],
+            answer: 'Cuviers Beaked Whale',
+        },
+        {
+            title: 'Question #4: What species of whale lives the longest?',
+            choices: ['Blue Whale', 'Bowhead Whale', 'Humpbacke Whale', 'Fin Whale'],
+            answer: 'Bowhead Whale',
+        },
+        {
+            title: 'Question #5: What is the only species of whale with a tooth outside its mouth?',
+            choices: ['Beluga Whale', 'Humpback Whale', 'Narwhal', 'Bowhead Whale'],
+            answer: 'Narwhal',
+        },
+    ]
+
+    var index = 0
+    var subIndex = 0
+    title.textContent = questions[index].title
+    que01.textContent = questions[index].choices[subIndex]
+    que02.textContent = questions[index].choices[subIndex + 1]
+    que03.textContent = questions[index].choices[subIndex + 2]
+    que04.textContent = questions[index].choices[subIndex + 3]
 
     questionsElement.appendChild(title);
     questionsElement.appendChild(que01);
@@ -63,6 +125,7 @@ function changeContent() {
     questionsElement.appendChild(que03);
     questionsElement.appendChild(que04);
 
+    var ans = questions[index].answer
     var ans01 = questionsElement.children[1]
     var ans02 = questionsElement.children[2]
     var ans03 = questionsElement.children[3]
@@ -70,56 +133,99 @@ function changeContent() {
     var correctSound = document.getElementById('correct')
     var incorrectSound = document.getElementById('incorrect');
 
-    ans01.addEventListener("click", function () {
-        ans01.setAttribute("style", "border:green solid 3px;");
-        timerElement.textContent = 'Time: ' + timeLeft
-        questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
-        rightWrong.textContent = "Correct!!!"
-        rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-        clearInterval(timeInterval);
-        correctSound.play()
-    })
 
-    ans02.addEventListener("click", function () {
-        ans01.setAttribute("style", "border:green solid 3px;");
-        timeLeft = timeLeft - 15;
-        timerElement.textContent = 'Time: ' + timeLeft;
-        questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
-        rightWrong.textContent = "Incorrect!!!"
-        rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-        clearInterval(timeInterval);
-        questionsElement.children[2].setAttribute("style", "border:red solid 3px;")
-        incorrectSound.play()
-    })
+    // setTimeout(function () {
+    //     index++;
+    //     if (index < questions.length) {
+    //         changeContent();
+    //     } else {
+    //         // The quiz is over, do something (e.g., show highscores, etc.)
+    //         console.log("Quiz Over");
+    //         // Implement your highscore or quiz completion logic here
+    //     }
+    // }, 1000); // Adjust the time delay (in milliseconds) as needed
+
+    // Update the button event listeners to call the validateAnswer function
+    que01.addEventListener("click", function () {
+        // validateAnswer(que01.textContent);
+        console.log(event.target.textContent)
+        if (event.target.textContent === questions.answer) {
+            
+        } else {
+            
+        }
+    });
+    
+    que02.addEventListener("click", function () {
+        // validateAnswer(que02.textContent);
+        console.log(event.target.textContent)
+    });
+    
+    que03.addEventListener("click", function () {
+        // validateAnswer(que03.textContent);
+        console.log(event.target.textContent)
+    });
+    
+    que04.addEventListener("click", function () {
+        // validateAnswer(que04.textContent);
+        console.log(event.target.textContent)
+    });
+
+}    
+
+// button.addEventListener("click", function (event) {
+//     console.log(event.target)
+//     console.log(event.target.textContent)
+// })
+
+// ans01.addEventListener("click", function () {
+//     ans01.setAttribute("style", "border:green solid 3px;");
+//     timerElement.textContent = 'Time: ' + timeLeft
+//     questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
+//     rightWrong.textContent = "Correct!!!"
+//     rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
+//     clearInterval(timeInterval);
+//     correctSound.play()
+// })
+
+// ans02.addEventListener("click", function () {
+//     ans01.setAttribute("style", "border:green solid 3px;");
+//     timeLeft = timeLeft - 15;
+//     timerElement.textContent = 'Time: ' + timeLeft;
+//     questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
+//     rightWrong.textContent = "Incorrect!!!"
+//     rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
+//     clearInterval(timeInterval);
+//     questionsElement.children[2].setAttribute("style", "border:red solid 3px;")
+//     incorrectSound.play()
+// })
+
+// ans03.addEventListener("click", function () {
+//     ans01.setAttribute("style", "border:green solid 3px;");
+//     timeLeft = timeLeft - 15;
+//     timerElement.textContent = 'Time: ' + timeLeft;
+//     questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
+//     rightWrong.textContent = "Incorrect!!!"
+//     rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
+//     clearInterval(timeInterval);
+//     questionsElement.children[3].setAttribute("style", "border:red solid 3px;")
+//     incorrectSound.play()
+// })
 
 
-    ans03.addEventListener("click", function () {
-        ans01.setAttribute("style", "border:green solid 3px;");
-        timeLeft = timeLeft - 15;
-        timerElement.textContent = 'Time: ' + timeLeft;
-        questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
-        rightWrong.textContent = "Incorrect!!!"
-        rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-        clearInterval(timeInterval);
-        questionsElement.children[3].setAttribute("style", "border:red solid 3px;")
-        incorrectSound.play()
-    })
+// ans04.addEventListener("click", function () {
+//     ans01.setAttribute("style", "border:green solid 3px;");
+//     timeLeft = timeLeft - 15;
+//     timerElement.textContent = 'Time: ' + timeLeft;
+//     questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;");
+//     rightWrong.textContent = "Incorrect!!!";
+//     rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%");
+//     clearInterval(timeInterval);
+//     questionsElement.children[4].setAttribute("style", "border:red solid 3px;");
+//     incorrectSound.play()
+//     })
+// }
 
-
-    ans04.addEventListener("click", function () {
-        ans01.setAttribute("style", "border:green solid 3px;");
-        timeLeft = timeLeft - 15;
-        timerElement.textContent = 'Time: ' + timeLeft;
-        questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;");
-        rightWrong.textContent = "Incorrect!!!";
-        rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%");
-        clearInterval(timeInterval);
-        questionsElement.children[4].setAttribute("style", "border:red solid 3px;");
-        incorrectSound.play()
-    })
-
-
-}
 
 function countdown() {
     timeLeft = 75
@@ -134,7 +240,6 @@ function countdown() {
         }
     }, 1000);
 }
-
 
 // Special Functions (like eventlisteners)
 
