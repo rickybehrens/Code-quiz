@@ -39,6 +39,8 @@ var timeInterval = "";
 var questionsElement = document.getElementById('questions');
 var containerElement = document.getElementById('container');
 var highscoresLink = document.getElementById('highscores')
+var index = 0
+var subIndex = 0
 
 // Function Definitions
 
@@ -111,8 +113,6 @@ function changeContent() {
         },
     ]
 
-    var index = 0
-    var subIndex = 0
     title.textContent = questions[index].title
     que01.textContent = questions[index].choices[subIndex]
     que02.textContent = questions[index].choices[subIndex + 1]
@@ -134,44 +134,32 @@ function changeContent() {
     var incorrectSound = document.getElementById('incorrect');
 
 
-    // setTimeout(function () {
-    //     index++;
-    //     if (index < questions.length) {
-    //         changeContent();
-    //     } else {
-    //         // The quiz is over, do something (e.g., show highscores, etc.)
-    //         console.log("Quiz Over");
-    //         // Implement your highscore or quiz completion logic here
-    //     }
-    // }, 1000); // Adjust the time delay (in milliseconds) as needed
-
-    // Update the button event listeners to call the validateAnswer function
     que01.addEventListener("click", function () {
-        // validateAnswer(que01.textContent);
-        console.log(event.target.textContent)
-        if (event.target.textContent === questions.answer) {
+        questionsElement.textContent = ""
+        index++
+        if (condition) {
             
         } else {
             
         }
+        changeContent()
     });
-    
     que02.addEventListener("click", function () {
-        // validateAnswer(que02.textContent);
-        console.log(event.target.textContent)
+        questionsElement.textContent = ""
+        index++
+        changeContent()
     });
-    
     que03.addEventListener("click", function () {
-        // validateAnswer(que03.textContent);
-        console.log(event.target.textContent)
+        questionsElement.textContent = ""
+        index++
+        changeContent()
     });
-    
     que04.addEventListener("click", function () {
-        // validateAnswer(que04.textContent);
-        console.log(event.target.textContent)
+        questionsElement.textContent = ""
+        index++
+        changeContent()
     });
-
-}    
+}
 
 // button.addEventListener("click", function (event) {
 //     console.log(event.target)
@@ -240,6 +228,19 @@ function countdown() {
         }
     }, 1000);
 }
+
+// setTimeout(function () {
+//     index++;
+//     if (index < questions.length) {
+//         changeContent();
+//     } else {
+//         // The quiz is over, do something (e.g., show highscores, etc.)
+//         console.log("Quiz Over");
+//         // Implement your highscore or quiz completion logic here
+//     }
+// }, 1000); // Adjust the time delay (in milliseconds) as needed
+
+// var timeout = setTimeout(index++, 2000);
 
 // Special Functions (like eventlisteners)
 
