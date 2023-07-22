@@ -51,7 +51,7 @@ function changeContent() {
     var que04 = document.createElement('button');
     var rightWrong = document.getElementById('answer');
 
-    title.textContent = 'Which is the largest whale species?'
+    title.textContent = 'Question #1: Which is the largest whale species?'
     que01.textContent = "1. Blue Whale"
     que02.textContent = "2. Humpback Whale"
     que03.textContent = "3. Minke Whale"
@@ -64,6 +64,11 @@ function changeContent() {
     questionsElement.appendChild(que04);
 
     var ans01 = questionsElement.children[1]
+    var ans02 = questionsElement.children[2]
+    var ans03 = questionsElement.children[3]
+    var ans04 = questionsElement.children[4]
+    var correctSound = document.getElementById('correct')
+    var incorrectSound = document.getElementById('incorrect');
 
     ans01.addEventListener("click", function () {
         ans01.setAttribute("style", "border:green solid 3px;");
@@ -72,8 +77,46 @@ function changeContent() {
         rightWrong.textContent = "Correct!!!"
         rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
         clearInterval(timeInterval);
+        correctSound.play()
     })
 
+    ans02.addEventListener("click", function () {
+        ans01.setAttribute("style", "border:green solid 3px;");
+        timeLeft = timeLeft - 15;
+        timerElement.textContent = 'Time: ' + timeLeft;
+        questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
+        rightWrong.textContent = "Incorrect!!!"
+        rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
+        clearInterval(timeInterval);
+        questionsElement.children[2].setAttribute("style", "border:red solid 3px;")
+        incorrectSound.play()
+    })
+
+
+    ans03.addEventListener("click", function () {
+        ans01.setAttribute("style", "border:green solid 3px;");
+        timeLeft = timeLeft - 15;
+        timerElement.textContent = 'Time: ' + timeLeft;
+        questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
+        rightWrong.textContent = "Incorrect!!!"
+        rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
+        clearInterval(timeInterval);
+        questionsElement.children[3].setAttribute("style", "border:red solid 3px;")
+        incorrectSound.play()
+    })
+
+
+    ans04.addEventListener("click", function () {
+        ans01.setAttribute("style", "border:green solid 3px;");
+        timeLeft = timeLeft - 15;
+        timerElement.textContent = 'Time: ' + timeLeft;
+        questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;");
+        rightWrong.textContent = "Incorrect!!!";
+        rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%");
+        clearInterval(timeInterval);
+        questionsElement.children[4].setAttribute("style", "border:red solid 3px;");
+        incorrectSound.play()
+    })
 
 
 }
@@ -89,7 +132,7 @@ function countdown() {
         } else {
             timerElement.textContent = 'Time: 0'
         }
-    }, 100);
+    }, 1000);
 }
 
 
