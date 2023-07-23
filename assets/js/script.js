@@ -44,39 +44,15 @@ var subIndex = 0
 
 // Function Definitions
 
-// function correct() {
-//     ans01.setAttribute("style", "border:green solid 3px;");
-//     timerElement.textContent = 'Time: ' + timeLeft
-//     questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
-//     rightWrong.textContent = "Correct!!!"
-//     rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-//     clearInterval(timeInterval);
-//     correctSound.play()
-// }
-
-// function incorrect() {
-//     ans01.setAttribute("style", "border:green solid 3px;");
-//     timeLeft = timeLeft - 15;
-//     timerElement.textContent = 'Time: ' + timeLeft;
-//     questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
-//     rightWrong.textContent = "Incorrect!!!"
-//     rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-//     clearInterval(timeInterval);
-//     questionsElement.children[2].setAttribute("style", "border:red solid 3px;")
-//     incorrectSound.play()
-// }
-
-// index = 0
-// function validateAnswer(userAnswer) {
-//     var correctAnswer = questions[index].answer
-//     if (userAnswer === correctAnswer) {
-//         correct();
-//     } else {
-//         incorrect();
-//     }
-// }
-
 function changeContent() {
+    
+    // if (index >= questions.length) {
+    //     // Do something here, or simply return to stop the function from continuing
+    //     answerElement.textContent = ""
+    //     containerElement.textContent = "YOU WIN!!!!\nYour Score is :" + timeLeft
+    //     return;
+    // }
+    
     containerElement.textContent = ""
     var title = document.createElement('h1')
     var que01 = document.createElement('button');
@@ -113,11 +89,12 @@ function changeContent() {
         },
     ]
 
+
     title.textContent = questions[index].title
-    que01.textContent = questions[index].choices[subIndex]
-    que02.textContent = questions[index].choices[subIndex + 1]
-    que03.textContent = questions[index].choices[subIndex + 2]
-    que04.textContent = questions[index].choices[subIndex + 3]
+    que01.textContent = questions[index].choices[0]
+    que02.textContent = questions[index].choices[1]
+    que03.textContent = questions[index].choices[2]
+    que04.textContent = questions[index].choices[3]
 
     questionsElement.appendChild(title);
     questionsElement.appendChild(que01);
@@ -133,119 +110,108 @@ function changeContent() {
     var correctSound = document.getElementById('correct')
     var incorrectSound = document.getElementById('incorrect');
 
+    function correct() {
+        rightWrong.textContent = "Correct!!!"
+        rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
+        clearInterval(timeInterval);
+        correctSound.play()
+    }
+
+    function incorrect() {
+        rightWrong.textContent = "Incorrect!!!"
+        rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
+        clearInterval(timeInterval);
+        incorrectSound.play()
+        timeLeft = timeLeft - 15;
+        timerElement.textContent = 'Time: ' + timeLeft;
+    }
 
     que01.addEventListener("click", function () {
-        questionsElement.textContent = ""
-        index++
-        if (condition) {
-            
+        var myTimeout = setTimeout(function () {
+            questionsElement.textContent = ""
+            index++
+            changeContent()
+            countdown(timeLeft)
+        }, 3000)
+        if (questions[index].choices[0] === questions[index].answer) {
+            ans01.setAttribute("style", "border:#28ff06 solid 3px;");
+            correct()
         } else {
-            
+            ans01.setAttribute("style", "border:red solid 3px;");
+            questionsElement.children[1].setAttribute("style", "border:red solid 3px;")
+            incorrect()
         }
-        changeContent()
     });
     que02.addEventListener("click", function () {
-        questionsElement.textContent = ""
-        index++
-        changeContent()
+        var myTimeout = setTimeout(function () {
+            questionsElement.textContent = ""
+            index++
+            changeContent()
+            countdown(timeLeft)
+        }, 3000)
+        if (questions[index].choices[1] === questions[index].answer) {
+            ans02.setAttribute("style", "border:#28ff06 solid 3px;");
+            correct()
+        } else {
+            ans02.setAttribute("style", "border:red solid 3px;");
+            questionsElement.children[2].setAttribute("style", "border:red solid 3px;")
+            incorrect()
+        }
     });
     que03.addEventListener("click", function () {
-        questionsElement.textContent = ""
-        index++
-        changeContent()
+        var myTimeout = setTimeout(function () {
+            questionsElement.textContent = ""
+            index++
+            changeContent()
+            countdown(timeLeft)
+        }, 3000)
+        if (questions[index].choices[2] === questions[index].answer) {
+            ans03.setAttribute("style", "border:#28ff06 solid 3px;");
+            correct()
+        } else {
+            ans03.setAttribute("style", "border:red solid 3px;");
+            questionsElement.children[3].setAttribute("style", "border:red solid 3px;")
+            incorrect()
+        }
     });
     que04.addEventListener("click", function () {
-        questionsElement.textContent = ""
-        index++
-        changeContent()
+        var myTimeout = setTimeout(function () {
+            questionsElement.textContent = ""
+            index++
+            changeContent()
+            countdown(timeLeft)
+        }, 3000)
+        if (questions[index].choices[3] === questions[index].answer) {
+            ans04.setAttribute("style", "border:#28ff06 solid 3px;");
+            correct()
+        } else {
+            ans04.setAttribute("style", "border:red solid 3px;");
+            questionsElement.children[4].setAttribute("style", "border:red solid 3px;")
+            incorrect()
+        }
     });
+
 }
-
-// button.addEventListener("click", function (event) {
-//     console.log(event.target)
-//     console.log(event.target.textContent)
-// })
-
-// ans01.addEventListener("click", function () {
-//     ans01.setAttribute("style", "border:green solid 3px;");
-//     timerElement.textContent = 'Time: ' + timeLeft
-//     questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
-//     rightWrong.textContent = "Correct!!!"
-//     rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-//     clearInterval(timeInterval);
-//     correctSound.play()
-// })
-
-// ans02.addEventListener("click", function () {
-//     ans01.setAttribute("style", "border:green solid 3px;");
-//     timeLeft = timeLeft - 15;
-//     timerElement.textContent = 'Time: ' + timeLeft;
-//     questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
-//     rightWrong.textContent = "Incorrect!!!"
-//     rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-//     clearInterval(timeInterval);
-//     questionsElement.children[2].setAttribute("style", "border:red solid 3px;")
-//     incorrectSound.play()
-// })
-
-// ans03.addEventListener("click", function () {
-//     ans01.setAttribute("style", "border:green solid 3px;");
-//     timeLeft = timeLeft - 15;
-//     timerElement.textContent = 'Time: ' + timeLeft;
-//     questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;")
-//     rightWrong.textContent = "Incorrect!!!"
-//     rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-//     clearInterval(timeInterval);
-//     questionsElement.children[3].setAttribute("style", "border:red solid 3px;")
-//     incorrectSound.play()
-// })
-
-
-// ans04.addEventListener("click", function () {
-//     ans01.setAttribute("style", "border:green solid 3px;");
-//     timeLeft = timeLeft - 15;
-//     timerElement.textContent = 'Time: ' + timeLeft;
-//     questionsElement.children[1].setAttribute("style", "border:#28ff06 solid 3px;");
-//     rightWrong.textContent = "Incorrect!!!";
-//     rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%");
-//     clearInterval(timeInterval);
-//     questionsElement.children[4].setAttribute("style", "border:red solid 3px;");
-//     incorrectSound.play()
-//     })
-// }
-
-
-function countdown() {
-    timeLeft = 75
+function countdown(initialTime) {
+    timeLeft = initialTime
     timerElement.textContent = 'Time: ' + timeLeft
     clearInterval(timeInterval);
 
     timeInterval = setInterval(function () {
-        if (timeLeft > 0) {
+        if (timeLeft >= 0) {
             timerElement.textContent = 'Time: ' + timeLeft--
         } else {
             timerElement.textContent = 'Time: 0'
+            alert('Game Over!!!')
+            clearInterval(timeInterval)
         }
     }, 1000);
 }
 
-// setTimeout(function () {
-//     index++;
-//     if (index < questions.length) {
-//         changeContent();
-//     } else {
-//         // The quiz is over, do something (e.g., show highscores, etc.)
-//         console.log("Quiz Over");
-//         // Implement your highscore or quiz completion logic here
-//     }
-// }, 1000); // Adjust the time delay (in milliseconds) as needed
-
-// var timeout = setTimeout(index++, 2000);
-
 // Special Functions (like eventlisteners)
 
 startButton.addEventListener("click", function () {
-    countdown();
+    countdown(75);
     changeContent();
 });
 
