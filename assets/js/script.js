@@ -38,159 +38,144 @@ var timeLeft = 0;
 var timeInterval = "";
 var questionsElement = document.getElementById('questions');
 var containerElement = document.getElementById('container');
+var answerElement = document.getElementById('answer')
 var highscoresLink = document.getElementById('highscores')
 var index = 0
-var subIndex = 0
+var questions = [
+    {
+        title: 'Question #1: What is the largest whale species?',
+        choices: ['Blue Whale', 'Humpback Whale', 'Minke Whale', 'Sperm Whale'],
+        answer: 'Blue Whale',
+    },
+    {
+        title: 'Question #2: What is the fastest whale species?',
+        choices: ['Minke Whale', 'Sei Whale', 'Cuviers Beaked Whale', 'Sperm Whale'],
+        answer: 'Sei Whale',
+    },
+    {
+        title: 'Question #3: What whale species can dive the deepest?',
+        choices: ['Sperm Whale', 'Humpback Whale', 'Sei Whale', 'Cuviers Beaked Whale'],
+        answer: 'Cuviers Beaked Whale',
+    },
+    {
+        title: 'Question #4: What species of whale lives the longest?',
+        choices: ['Blue Whale', 'Bowhead Whale', 'Humpbacke Whale', 'Fin Whale'],
+        answer: 'Bowhead Whale',
+    },
+    {
+        title: 'Question #5: What is the only species of whale with a tooth outside its mouth?',
+        choices: ['Beluga Whale', 'Humpback Whale', 'Narwhal', 'Bowhead Whale'],
+        answer: 'Narwhal',
+    },
+]
 
 // Function Definitions
 
 function changeContent() {
-    
-    // if (index >= questions.length) {
-    //     // Do something here, or simply return to stop the function from continuing
-    //     answerElement.textContent = ""
-    //     containerElement.textContent = "YOU WIN!!!!\nYour Score is :" + timeLeft
-    //     return;
-    // }
-    
-    containerElement.textContent = ""
-    var title = document.createElement('h1')
-    var que01 = document.createElement('button');
-    var que02 = document.createElement('button');
-    var que03 = document.createElement('button');
-    var que04 = document.createElement('button');
-    var rightWrong = document.getElementById('answer');
+    if (index >= questions.length) {
+        containerElement.textContent = "All Done!!!"
+        questionsElement.textContent = "Your final score is: " + timeLeft
+        answerElement.textContent = "";
+        return;
+    } else {
+        containerElement.textContent = ""
+        var title = document.createElement('h1')
+        var que01 = document.createElement('button');
+        var que02 = document.createElement('button');
+        var que03 = document.createElement('button');
+        var que04 = document.createElement('button');
+        var rightWrong = document.getElementById('answer');
 
-    var questions = [
-        {
-            title: 'Question #1: What is the largest whale species?',
-            choices: ['Blue Whale', 'Humpback Whale', 'Minke Whale', 'Sperm Whale'],
-            answer: 'Blue Whale',
-        },
-        {
-            title: 'Question #2: What is the fastest whale species?',
-            choices: ['Minke Whale', 'Sei Whale', 'Cuviers Beaked Whale', 'Sperm Whale'],
-            answer: 'Sei Whale',
-        },
-        {
-            title: 'Question #3: What whale species can dive the deepest?',
-            choices: ['Sperm Whale', 'Humpback Whale', 'Sei Whale', 'Cuviers Beaked Whale'],
-            answer: 'Cuviers Beaked Whale',
-        },
-        {
-            title: 'Question #4: What species of whale lives the longest?',
-            choices: ['Blue Whale', 'Bowhead Whale', 'Humpbacke Whale', 'Fin Whale'],
-            answer: 'Bowhead Whale',
-        },
-        {
-            title: 'Question #5: What is the only species of whale with a tooth outside its mouth?',
-            choices: ['Beluga Whale', 'Humpback Whale', 'Narwhal', 'Bowhead Whale'],
-            answer: 'Narwhal',
-        },
-    ]
+        title.textContent = questions[index].title
+        que01.textContent = questions[index].choices[0]
+        que02.textContent = questions[index].choices[1]
+        que03.textContent = questions[index].choices[2]
+        que04.textContent = questions[index].choices[3]
 
+        questionsElement.appendChild(title);
+        questionsElement.appendChild(que01);
+        questionsElement.appendChild(que02);
+        questionsElement.appendChild(que03);
+        questionsElement.appendChild(que04);
 
-    title.textContent = questions[index].title
-    que01.textContent = questions[index].choices[0]
-    que02.textContent = questions[index].choices[1]
-    que03.textContent = questions[index].choices[2]
-    que04.textContent = questions[index].choices[3]
+        var ans = questions[index].answer
+        var ans01 = questionsElement.children[1]
+        var ans02 = questionsElement.children[2]
+        var ans03 = questionsElement.children[3]
+        var ans04 = questionsElement.children[4]
+        var correctSound = document.getElementById('correct')
+        var incorrectSound = document.getElementById('incorrect');
 
-    questionsElement.appendChild(title);
-    questionsElement.appendChild(que01);
-    questionsElement.appendChild(que02);
-    questionsElement.appendChild(que03);
-    questionsElement.appendChild(que04);
+        function hold() {
+            var myTimeout = setTimeout(function () {
+                questionsElement.textContent = ""
+                index++
+                changeContent()
+                countdown(timeLeft)
+            }, 2000)
+        }
 
-    var ans = questions[index].answer
-    var ans01 = questionsElement.children[1]
-    var ans02 = questionsElement.children[2]
-    var ans03 = questionsElement.children[3]
-    var ans04 = questionsElement.children[4]
-    var correctSound = document.getElementById('correct')
-    var incorrectSound = document.getElementById('incorrect');
+        function correct() {
+            rightWrong.textContent = "Correct!!!"
+            rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
+            clearInterval(timeInterval);
+            correctSound.play()
+        }
 
-    function correct() {
-        rightWrong.textContent = "Correct!!!"
-        rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-        clearInterval(timeInterval);
-        correctSound.play()
+        function incorrect() {
+            rightWrong.textContent = "Incorrect!!!"
+            rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
+            clearInterval(timeInterval);
+            incorrectSound.play()
+            timeLeft = timeLeft - 15;
+            timerElement.textContent = 'Time: ' + timeLeft;
+        }
+
+        que01.addEventListener("click", function () {
+            hold()
+            if (questions[index].choices[0] === ans) {
+                ans01.setAttribute("style", "border:#28ff06 solid 3px;");
+                correct()
+            } else {
+                ans01.setAttribute("style", "border:red solid 3px;");
+                questionsElement.children[1].setAttribute("style", "border:red solid 3px;")
+                incorrect()
+            }
+        });
+        que02.addEventListener("click", function () {
+            hold()
+            if (questions[index].choices[1] === ans) {
+                ans02.setAttribute("style", "border:#28ff06 solid 3px;");
+                correct()
+            } else {
+                ans02.setAttribute("style", "border:red solid 3px;");
+                questionsElement.children[2].setAttribute("style", "border:red solid 3px;")
+                incorrect()
+            }
+        });
+        que03.addEventListener("click", function () {
+            hold()
+            if (questions[index].choices[2] === ans) {
+                ans03.setAttribute("style", "border:#28ff06 solid 3px;");
+                correct()
+            } else {
+                ans03.setAttribute("style", "border:red solid 3px;");
+                questionsElement.children[3].setAttribute("style", "border:red solid 3px;")
+                incorrect()
+            }
+        });
+        que04.addEventListener("click", function () {
+            hold()
+            if (questions[index].choices[3] === ans) {
+                ans04.setAttribute("style", "border:#28ff06 solid 3px;");
+                correct()
+            } else {
+                ans04.setAttribute("style", "border:red solid 3px;");
+                questionsElement.children[4].setAttribute("style", "border:red solid 3px;")
+                incorrect()
+            }
+        });
     }
-
-    function incorrect() {
-        rightWrong.textContent = "Incorrect!!!"
-        rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-        clearInterval(timeInterval);
-        incorrectSound.play()
-        timeLeft = timeLeft - 15;
-        timerElement.textContent = 'Time: ' + timeLeft;
-    }
-
-    que01.addEventListener("click", function () {
-        var myTimeout = setTimeout(function () {
-            questionsElement.textContent = ""
-            index++
-            changeContent()
-            countdown(timeLeft)
-        }, 3000)
-        if (questions[index].choices[0] === questions[index].answer) {
-            ans01.setAttribute("style", "border:#28ff06 solid 3px;");
-            correct()
-        } else {
-            ans01.setAttribute("style", "border:red solid 3px;");
-            questionsElement.children[1].setAttribute("style", "border:red solid 3px;")
-            incorrect()
-        }
-    });
-    que02.addEventListener("click", function () {
-        var myTimeout = setTimeout(function () {
-            questionsElement.textContent = ""
-            index++
-            changeContent()
-            countdown(timeLeft)
-        }, 3000)
-        if (questions[index].choices[1] === questions[index].answer) {
-            ans02.setAttribute("style", "border:#28ff06 solid 3px;");
-            correct()
-        } else {
-            ans02.setAttribute("style", "border:red solid 3px;");
-            questionsElement.children[2].setAttribute("style", "border:red solid 3px;")
-            incorrect()
-        }
-    });
-    que03.addEventListener("click", function () {
-        var myTimeout = setTimeout(function () {
-            questionsElement.textContent = ""
-            index++
-            changeContent()
-            countdown(timeLeft)
-        }, 3000)
-        if (questions[index].choices[2] === questions[index].answer) {
-            ans03.setAttribute("style", "border:#28ff06 solid 3px;");
-            correct()
-        } else {
-            ans03.setAttribute("style", "border:red solid 3px;");
-            questionsElement.children[3].setAttribute("style", "border:red solid 3px;")
-            incorrect()
-        }
-    });
-    que04.addEventListener("click", function () {
-        var myTimeout = setTimeout(function () {
-            questionsElement.textContent = ""
-            index++
-            changeContent()
-            countdown(timeLeft)
-        }, 3000)
-        if (questions[index].choices[3] === questions[index].answer) {
-            ans04.setAttribute("style", "border:#28ff06 solid 3px;");
-            correct()
-        } else {
-            ans04.setAttribute("style", "border:red solid 3px;");
-            questionsElement.children[4].setAttribute("style", "border:red solid 3px;")
-            incorrect()
-        }
-    });
-
 }
 function countdown(initialTime) {
     timeLeft = initialTime
