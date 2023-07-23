@@ -59,7 +59,7 @@ var questions = [
     },
     {
         title: 'Question #4: What species of whale lives the longest?',
-        choices: ['Blue Whale', 'Bowhead Whale', 'Humpbacke Whale', 'Fin Whale'],
+        choices: ['Blue Whale', 'Bowhead Whale', 'Humpback Whale', 'Fin Whale'],
         answer: 'Bowhead Whale',
     },
     {
@@ -73,10 +73,10 @@ var questions = [
 
 function changeContent() {
     if (index >= questions.length) {
+        clearInterval(timeInterval)
         containerElement.textContent = "All Done!!!"
         questionsElement.textContent = "Your final score is: " + timeLeft
         answerElement.textContent = "";
-        return;
     } else {
         containerElement.textContent = ""
         var title = document.createElement('h1')
@@ -107,7 +107,7 @@ function changeContent() {
         var incorrectSound = document.getElementById('incorrect');
 
         function hold() {
-            var myTimeout = setTimeout(function () {
+            setTimeout(function () {
                 questionsElement.textContent = ""
                 index++
                 changeContent()
@@ -177,13 +177,14 @@ function changeContent() {
         });
     }
 }
+
 function countdown(initialTime) {
     timeLeft = initialTime
     timerElement.textContent = 'Time: ' + timeLeft
     clearInterval(timeInterval);
 
     timeInterval = setInterval(function () {
-        if (timeLeft >= 0) {
+        if (timeLeft > 0) {
             timerElement.textContent = 'Time: ' + timeLeft--
         } else {
             timerElement.textContent = 'Time: 0'
