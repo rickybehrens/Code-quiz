@@ -22,7 +22,7 @@
 //  * After 5 questions, the following message appears:
 //      ** All done!
 //      ** Your final score is 22 (those are the seconds remaining)
-//      ** Enter Initials: (foloowed by a field and a "Submit" button next to it)
+//      ** Enter Initials: (followed by a field and a "Submit" button next to it)
 //      ** When box is selected, the borders change to blue
 //      ** When the mouse hovers on the button, it changes color to slightly lighter
 //      ** When the button is clicked, the shaded borders on the field box turn back to normal color but the border on the button change to the same blue color
@@ -32,15 +32,21 @@
 //          *** Two buttons below everything, "Go Back" and "Clear Highscores"
 
 // Variable
+var body = document.body;
 var startButton = document.getElementById('start-quiz');
 var timerElement = document.getElementById('timerId');
 var timeLeft = 0;
 var timeInterval = "";
 var questionsElement = document.getElementById('questions');
 var containerElement = document.getElementById('container');
-var answerElement = document.getElementById('answer')
-var highscoresLink = document.getElementById('highscores')
-var index = 0
+var answerElement = document.getElementById('answer');
+var ansButton = document.createElement("button");
+ansButton.textContent = "Submit";
+var entInitials = document.createElement("input")
+entInitials.textContent = "Enter Initials"
+var highscoresLink = document.getElementById('highscores');
+var index = 0;
+var rightWrong = document.getElementById('answer');
 var questions = [
     {
         title: 'Question #1: What is the largest whale species?',
@@ -73,10 +79,7 @@ var questions = [
 
 function changeContent() {
     if (index >= questions.length) {
-        clearInterval(timeInterval)
-        containerElement.textContent = "All Done!!!"
-        questionsElement.textContent = "Your final score is: " + timeLeft
-        answerElement.textContent = "";
+        endQuiz()
     } else {
         containerElement.textContent = ""
         var title = document.createElement('h1')
@@ -84,7 +87,7 @@ function changeContent() {
         var que02 = document.createElement('button');
         var que03 = document.createElement('button');
         var que04 = document.createElement('button');
-        var rightWrong = document.getElementById('answer');
+        answerElement.textContent = ""
 
         title.textContent = questions[index].title
         que01.textContent = questions[index].choices[0]
@@ -178,10 +181,19 @@ function changeContent() {
     }
 }
 
+var hidden = false;
+function action() {
+    hidden = !hidden;
+    if (hidden) {
+        document.getElementById('highscores').style.visibility = 'hidden';
+    } else {
+        document.getElementById('highscores').style.visibility = 'visible';
+    }
+}
+
 function countdown(initialTime) {
     timeLeft = initialTime
     timerElement.textContent = 'Time: ' + timeLeft
-    clearInterval(timeInterval);
 
     timeInterval = setInterval(function () {
         if (timeLeft > 0) {
@@ -194,13 +206,59 @@ function countdown(initialTime) {
     }, 1000);
 }
 
+function endQuiz() {
+    clearInterval(timeInterval)
+    containerElement.textContent = "All Done!!!"
+    questionsElement.textContent = "Your final score is: " + timeLeft
+    rightWrong.textContent = ""
+    body.appendChild(entInitials)
+    entInitials.setAttribute("style", "margin-left:300px; font-size:20px")
+    body.appendChild(ansButton)
+    ansButton.setAttribute("style", "margin-left:100px; border-radius:20px; background-color:green")
+    ansButton.addEventListener("click", function () {
+        var initials = entInitials.value.trim(); // Get the initials entered by the user
+        if (initials === "") {
+            alert("Please enter your initials before submitting.");
+            return;
+        }
+
+        // Store the time left and initials in an object
+        var scoreEntry = { initials: initials, score: timeLeft };
+
+        // Retrieve the existing highscoresArray from localStorage or create an empty array
+        var existingHighscores = localStorage.getItem("highscoresArray");
+        var highscoresArray = existingHighscores ? JSON.parse(existingHighscores) : [];
+
+        // Add the new score entry to the highscoresArray
+        highscoresArray.push(scoreEntry);
+
+        // Sort the highscoresArray based on scores (highest first)
+        highscoresArray.sort(function (a, b) {
+            return b.score - a.score;
+        });
+
+        // Store the updated highscoresArray in localStorage
+        localStorage.setItem("highscoresArray", JSON.stringify(highscoresArray));
+
+        // Redirect to the highscores page
+        window.location.href = "highscores.html";
+    });
+
+    // function submit() {
+    //     document.getElementById("submit").setAttribute("type", "button");
+    //     // Once initial have been input and "submit" button clicked, the information should be stored locally and added to the "highscoresArray"
+    //     // I need to make this button dissapear from the begining and appear only after the game has ended
+    //     // After the "submit" button is clicked, it takes you inmediatelly to the highscore page
+    //     // If time runs out and the game is over that way, the highscores link should be visible
+    // }
+
+}
 // Special Functions (like eventlisteners)
 
 startButton.addEventListener("click", function () {
     countdown(75);
     changeContent();
+    action();
 });
 
 // Business Logic (anything that can start the applications)
-
-
