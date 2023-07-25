@@ -10,19 +10,31 @@
 // create an array with all the stored initials and time (probably concatinating the array)
 
 // Variables
-var highscoresArray = [30, 33, 47, 50, 60, 40, 20, 54, 48, 58]
+var highscoresArray = []
 
 // Define Functions
-highscoresArray.sort(function(a,b){return b-a});
-console.log(highscoresArray)
+document.addEventListener('DOMContentLoaded', function () {
+  var topScores = document.getElementById('topScores');
+  var highscoresArray = JSON.parse(localStorage.getItem("highscores")) || [];
 
-document.addEventListener('DOMContentLoaded', function() {
-    var liElements = document.querySelectorAll('li');
-    for (var i = 0; i < highscoresArray.length; i++) {
-      liElements[i].textContent = highscoresArray[i];
-    }
+  // Sort the highscoresArray in descending order by score
+  highscoresArray.sort(function (a, b) {
+      return b.score - a.score;
   });
 
+  // Display the top 10 high scores in the ol element
+  for (var i = 0; i < Math.min(10, highscoresArray.length); i++) {
+      var li = document.createElement("li");
+      li.textContent = highscoresArray[i].initials + " - " + highscoresArray[i].score;
+      topScores.appendChild(li);
+  }
+});
+
+function clearHighscores() {
+  localStorage.removeItem("highscores");
+  var topScores = document.getElementById('topScores');
+  topScores.innerHTML = "";
+}
 // Special functions
 
 // Business logic

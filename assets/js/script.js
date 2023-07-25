@@ -47,6 +47,7 @@ entInitials.textContent = "Enter Initials"
 var highscoresLink = document.getElementById('highscores');
 var index = 0;
 var rightWrong = document.getElementById('answer');
+var scores = document.getElementById('topScores')
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -58,17 +59,17 @@ function shuffleArray(array) {
 var questions = [
     {
         title: 'Question #1: What is the largest whale species?',
-        choices: ['Blue Whale', 'Humpback Whale', 'Minke Whale', 'Sperm Whale'],
+        choices: ['Blue Whale', 'Fin Whale', 'Minke Whale', 'Sperm Whale'],
         answer: 'Blue Whale',
     },
     {
         title: 'Question #2: What is the fastest whale species?',
-        choices: ['Minke Whale', 'Sei Whale', 'Cuviers Beaked Whale', 'Sperm Whale'],
+        choices: ['Minke Whale', 'Sei Whale', 'Cuviers Beaked Whale', 'Beluga Whale'],
         answer: 'Sei Whale',
     },
     {
         title: 'Question #3: What whale species can dive the deepest?',
-        choices: ['Sperm Whale', 'Humpback Whale', 'Sei Whale', 'Cuviers Beaked Whale'],
+        choices: ['Sperm Whale', 'Narwhal', 'Sei Whale', 'Cuviers Beaked Whale'],
         answer: 'Cuviers Beaked Whale',
     },
     {
@@ -91,6 +92,10 @@ questions.forEach(question => {
 function changeContent() {
     if (index >= questions.length) {
         endQuiz();
+
+        console.log(timeLeft); // Debugging statement
+        console.log(timeInterval); // Debugging statement
+
     } else {
         containerElement.textContent = ""
         var title = document.createElement('h1')
@@ -222,6 +227,10 @@ function countdown(initialTime) {
 
 function endQuiz() {
     clearInterval(timeInterval)
+    
+    console.log(timeLeft) // Debugging statement
+    console.log(timeInterval) // Debugging statement
+
     containerElement.textContent = "All Done!!!"
     questionsElement.textContent = "Your final score is: " + timeLeft
     rightWrong.textContent = ""
@@ -229,46 +238,35 @@ function endQuiz() {
     entInitials.setAttribute("style", "margin-left:300px; font-size:20px")
     body.appendChild(ansButton)
     ansButton.setAttribute("style", "margin-left:100px; border-radius:20px; background-color:green")
+
     ansButton.addEventListener("click", function () {
-        var initials = entInitials.value.trim(); // Get the initials entered by the user
-        if (initials === "") {
-            alert("Please enter your initials before submitting.");
-            return;
+        var initials = entInitials.value.trim();
+        if (initials !== "") {
+            // Save the final score and initials to local storage
+            var highscoresArray = JSON.parse(localStorage.getItem("highscores")) || [];
+            highscoresArray.push({ score: timeLeft,  initials: initials});
+            localStorage.setItem("highscores", JSON.stringify(highscoresArray));
+
+            // Navigate to highscores.html
+            window.location.href = "./highscores.html";
+        } else {
+            alert("Please enter your initials.");
         }
-
-        // // Store the time left and initials in an object
-        // var scoreEntry = { initials: initials, score: timeLeft };
-
-        // // Retrieve the existing highscoresArray from localStorage or create an empty array
-        // var existingHighscores = localStorage.getItem("highscoresArray");
-        // var highscoresArray = existingHighscores ? JSON.parse(existingHighscores) : [];
-
-        // // Add the new score entry to the highscoresArray
-        // highscoresArray.push(scoreEntry);
-
-        // // Sort the highscoresArray based on scores (highest first)
-        // highscoresArray.sort(function (a, b) {
-        //     return b.score - a.score;
-        // });
-
-        // // Store the updated highscoresArray in localStorage
-        // localStorage.setItem("highscoresArray", JSON.stringify(highscoresArray));
-
-        // // Redirect to the highscores page
-        // window.location.href = "highscores.html";
     });
-
-    // function submit() {
-    //     document.getElementById("submit").setAttribute("type", "button");
-    //     // Once initial have been input and "submit" button clicked, the information should be stored locally and added to the "highscoresArray"
-    //     // I need to make this button dissapear from the begining and appear only after the game has ended
-    //     // After the "submit" button is clicked, it takes you inmediatelly to the highscore page
-    //     // If time runs out and the game is over that way, the highscores link should be visible
-    // }
-
 }
+
+// function submit() {
+//     document.getElementById("submit").setAttribute("type", "button");
+//     // Once initial have been input and "submit" button clicked, the information should be stored locally and added to the "highscoresArray"
+//     // I need to make this button dissapear from the begining and appear only after the game has ended
+//     // After the "submit" button is clicked, it takes you inmediatelly to the highscore page
+//     // If time runs out and the game is over that way, the highscores link should be visible
+// }
+
+
 // Special Functions (like eventlisteners)
 
+// Add the event listener only if the element exists
 startButton.addEventListener("click", function () {
     countdown(75);
     changeContent();
