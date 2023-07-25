@@ -108,27 +108,27 @@ function changeContent() {
         var ans04 = questionsElement.children[4]
         var correctSound = document.getElementById('correct')
         var incorrectSound = document.getElementById('incorrect');
-
+        
         function hold() {
-            setTimeout(function () {
-                questionsElement.textContent = ""
-                index++
-                changeContent()
-                countdown(timeLeft)
-            }, 2000)
+            index++
+            questionsElement.textContent = ""
+            changeContent()
+            // setTimeout(function () {
+            //     countdown(timeLeft)
+            // }, 2000)
         }
 
         function correct() {
             rightWrong.textContent = "Correct!!!"
             rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-            clearInterval(timeInterval);
+            // clearInterval(timeInterval);
             correctSound.play()
         }
 
         function incorrect() {
             rightWrong.textContent = "Incorrect!!!"
             rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-            clearInterval(timeInterval);
+            // clearInterval(timeInterval);
             incorrectSound.play()
             timeLeft = timeLeft - 15;
             timerElement.textContent = 'Time: ' + timeLeft;
@@ -172,10 +172,12 @@ function changeContent() {
             if (questions[index].choices[3] === ans) {
                 ans04.setAttribute("style", "border:#28ff06 solid 3px;");
                 correct()
+                clearInterval(timeInterval)
             } else {
                 ans04.setAttribute("style", "border:red solid 3px;");
                 questionsElement.children[4].setAttribute("style", "border:red solid 3px;")
                 incorrect()
+                clearInterval(timeInterval)
             }
         });
     }
@@ -207,7 +209,8 @@ function countdown(initialTime) {
 }
 
 function endQuiz() {
-    clearInterval(timeInterval)
+    console.log(timeInterval)
+    clearInterval(9)
     containerElement.textContent = "All Done!!!"
     questionsElement.textContent = "Your final score is: " + timeLeft
     rightWrong.textContent = ""
@@ -222,26 +225,26 @@ function endQuiz() {
             return;
         }
 
-        // Store the time left and initials in an object
-        var scoreEntry = { initials: initials, score: timeLeft };
+        // // Store the time left and initials in an object
+        // var scoreEntry = { initials: initials, score: timeLeft };
 
-        // Retrieve the existing highscoresArray from localStorage or create an empty array
-        var existingHighscores = localStorage.getItem("highscoresArray");
-        var highscoresArray = existingHighscores ? JSON.parse(existingHighscores) : [];
+        // // Retrieve the existing highscoresArray from localStorage or create an empty array
+        // var existingHighscores = localStorage.getItem("highscoresArray");
+        // var highscoresArray = existingHighscores ? JSON.parse(existingHighscores) : [];
 
-        // Add the new score entry to the highscoresArray
-        highscoresArray.push(scoreEntry);
+        // // Add the new score entry to the highscoresArray
+        // highscoresArray.push(scoreEntry);
 
-        // Sort the highscoresArray based on scores (highest first)
-        highscoresArray.sort(function (a, b) {
-            return b.score - a.score;
-        });
+        // // Sort the highscoresArray based on scores (highest first)
+        // highscoresArray.sort(function (a, b) {
+        //     return b.score - a.score;
+        // });
 
-        // Store the updated highscoresArray in localStorage
-        localStorage.setItem("highscoresArray", JSON.stringify(highscoresArray));
+        // // Store the updated highscoresArray in localStorage
+        // localStorage.setItem("highscoresArray", JSON.stringify(highscoresArray));
 
-        // Redirect to the highscores page
-        window.location.href = "highscores.html";
+        // // Redirect to the highscores page
+        // window.location.href = "highscores.html";
     });
 
     // function submit() {
