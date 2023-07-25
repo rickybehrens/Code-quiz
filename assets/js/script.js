@@ -47,6 +47,14 @@ entInitials.textContent = "Enter Initials"
 var highscoresLink = document.getElementById('highscores');
 var index = 0;
 var rightWrong = document.getElementById('answer');
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 var questions = [
     {
         title: 'Question #1: What is the largest whale species?',
@@ -74,12 +82,15 @@ var questions = [
         answer: 'Narwhal',
     },
 ]
+questions.forEach(question => {
+    shuffleArray(question.choices);
+});
 
 // Function Definitions
 
 function changeContent() {
     if (index >= questions.length) {
-        endQuiz()
+        endQuiz();
     } else {
         containerElement.textContent = ""
         var title = document.createElement('h1')
@@ -108,27 +119,29 @@ function changeContent() {
         var ans04 = questionsElement.children[4]
         var correctSound = document.getElementById('correct')
         var incorrectSound = document.getElementById('incorrect');
-        
+
         function hold() {
-            index++
-            questionsElement.textContent = ""
-            changeContent()
-            // setTimeout(function () {
-            //     countdown(timeLeft)
-            // }, 2000)
+            setTimeout(function () {
+                index++
+                questionsElement.textContent = ""
+                changeContent()
+                countdown(timeLeft)
+            }, 2000)
         }
 
         function correct() {
             rightWrong.textContent = "Correct!!!"
             rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-            // clearInterval(timeInterval);
+                ;
+            clearInterval(timeInterval);
             correctSound.play()
         }
 
         function incorrect() {
             rightWrong.textContent = "Incorrect!!!"
             rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%")
-            // clearInterval(timeInterval);
+                ;
+            clearInterval(timeInterval);
             incorrectSound.play()
             timeLeft = timeLeft - 15;
             timerElement.textContent = 'Time: ' + timeLeft;
@@ -172,12 +185,12 @@ function changeContent() {
             if (questions[index].choices[3] === ans) {
                 ans04.setAttribute("style", "border:#28ff06 solid 3px;");
                 correct()
-                clearInterval(timeInterval)
+                    ;
             } else {
                 ans04.setAttribute("style", "border:red solid 3px;");
                 questionsElement.children[4].setAttribute("style", "border:red solid 3px;")
                 incorrect()
-                clearInterval(timeInterval)
+                    ;
             }
         });
     }
@@ -196,21 +209,19 @@ function action() {
 function countdown(initialTime) {
     timeLeft = initialTime
     timerElement.textContent = 'Time: ' + timeLeft
-
     timeInterval = setInterval(function () {
         if (timeLeft > 0) {
             timerElement.textContent = 'Time: ' + timeLeft--
         } else {
             timerElement.textContent = 'Time: 0'
-            alert('Game Over!!!')
+            alert('Game Over!!! Time is Up!!!');
             clearInterval(timeInterval)
         }
     }, 1000);
 }
 
 function endQuiz() {
-    console.log(timeInterval)
-    clearInterval(9)
+    clearInterval(timeInterval)
     containerElement.textContent = "All Done!!!"
     questionsElement.textContent = "Your final score is: " + timeLeft
     rightWrong.textContent = ""
