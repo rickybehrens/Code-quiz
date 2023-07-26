@@ -48,7 +48,7 @@ var questions = [
     },
     {
         title: 'Question #5: What is the only species of whale with a tooth outside its mouth?',
-        choices: ['Beluga Whale', 'Humpback Whale', 'Narwhal', 'Bowhead Whale'],
+        choices: ['Beluga Whale', 'Killer Whale', 'Narwhal', 'Bowhead Whale'],
         answer: 'Narwhal',
     },
 ]
@@ -114,10 +114,6 @@ function changeContent() {
 
         // When answered incorrectly, this function is called
         function incorrect() {
-            rightWrong.textContent = "Incorrect!!!"
-            rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%");
-            clearInterval(timeInterval);
-            incorrectSound.play()
             if (ans === ans01.textContent) {
                 ans01.setAttribute("style", "border:#28ff06 solid 3px;");
             } else if (ans === ans02.textContent) {
@@ -127,6 +123,10 @@ function changeContent() {
             } else {
                 ans04.setAttribute("style", "border:#28ff06 solid 3px;");
             }
+            rightWrong.textContent = "Incorrect!!!"
+            rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%");
+            clearInterval(timeInterval);
+            incorrectSound.play()
             timeLeft = timeLeft - 15;
             if (timeLeft <= 0) {
                 alert('Game Over!!! Time is Up!!!');
