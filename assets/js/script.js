@@ -122,6 +122,7 @@ function changeContent() {
             if (timeLeft <= 0) {
                 alert('Game Over!!! Time is Up!!!');
                 clearInterval(timeInterval);
+                timerElement.textContent = 'Time: 0';
                 window.location.href = "./highscores.html";
             }
             timerElement.textContent = 'Time: ' + timeLeft;

@@ -4,9 +4,12 @@
 ## Quiz Info
 
 ```
-The following quiz is formed by 5 questions about whale species. Each question will have 4 choices that appear in random order every time the quiz is started and there's only 1 correct answer.
+On the Home Page, you find a link in the upper left corner that will take you to the locally sotred highest scores. The timer which it's set at 0 seconds and a brief explanation on how to quiz works.
 
-Once the user has selected his choice, two things will happen:
+The following quiz is formed by 5 questions about whale species. Each question will have 4 choices that appear in random order every time the quiz is started and there's only 1 correct answer. Once you click the "Start Quiz" button, the timer will go to 75 an will immediatelly start counting down to 0. At the same time, the first question will appear in your screen with the possible choices.
+
+Once the user has selected his choice, the time will stop for 3 seconds and two actions will happen given if the selected button was the correct or incorrect answer:
+
     * Correct answer:   ** The button will have a green border around it
                         ** A sound will indicate that you've chosen correctly
                         ** The following word will appear below "CORRECT!!!"
@@ -14,27 +17,20 @@ Once the user has selected his choice, two things will happen:
     * Incorrect answer: ** The button will have a red border around it
                         ** The correct choice will have a green border around it
                         ** A sound will indicate that you've chosen incorrectly
-                        ** The followind word will appear below "INCORRECT!!!"
+                        ** 15 seconds will be deducted from your timer
+                        ** The following word will appear below "INCORRECT!!!"
 
-## User Story
+The only way to loose in this quiz is if your time runs out. If you take too long to read and asnwer these 5 question, the timer will run down from 75 seconds all the way down to 0 and you will get an alert saying "Game Over!!! Time is Up!!!" which then it will take you to the Highscores page without the ability to record your initials.
 
-```
-AS A coding boot camp student
-I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
-SO THAT I can gauge my progress compared to my peers
+Also remember that if you answer a question incorrectly, you will get a deduction of 15 seconds on your timer and if by answering many questions incorrectly, your timer hits 0 seconds left, you will also get an alert saying "Game Over!!! Time is Up!!!" which in turn it will take you to the Highscores page without the ability to record your initials.
 ```
 
-## Acceptance Criteria
+## Highscores
 
 ```
-GIVEN I am taking a code quiz
-WHEN I click the start button
-THEN a timer starts and I am presented with a question
-WHEN I answer a question
-THEN I am presented with another question
-WHEN I answer a question incorrectly
-THEN time is subtracted from the clock
-WHEN all questions are answered or the timer reaches 0
-THEN the game is over
-WHEN the game is over
-THEN I can save my initials and my score
+All scores are stored locally and are reflected in its own url. Only the top 10 highest scores are displayed in the Highscores list while the others are stored but not displayed.
+
+The "Go Back" button will take you back to the home page of the quiz.
+
+The "Clear Highscores" button will clear the local memory ereasing permanently all scores until that point, but not beofre asking if the user really would like to perform said action.
+```
