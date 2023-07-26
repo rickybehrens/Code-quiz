@@ -1,37 +1,3 @@
-// ## Pseudo Code
-//  * Home page has the following:
-//      ** "View Highscores" on the top left corner
-//      ** "Time: 0" on the top right corner
-//      ** Coding Quiz Challenge
-//      ** Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your scoretime by ten seconds!
-//      ** "Start Quiz" button
-
-//  * After the "Start Quiz" button is pressed, the following occurs:
-//      ** Timer changes from "Time: 0" to "Time: 75" and it starts counting down
-//      ** The first question appears with 4 multiple choice answers in button shape
-//      ** The moment the mouse hovers ove the image, it changes color to a little bit lighter
-//      ** When a "click" is made on the selected answer, the button gets a blue shade around it for 0.5 seconds
-//          *** Timer should stop
-//          *** If answer is correct, blue shade should turn green for 3 seconds
-//          *** "Correct!" should apprear below all the multiple choice answers for 3 seconds
-//          *** If asnwer is incorrect, blue shade should turn red and the correct answer's border should turn green for 3 seconds
-//          *** "Wrong!" should appear below all the multiple choice answers for 3 seconds
-//          *** Time in the timer should decrease by 10 seconds and it should turn red for 3 seconds
-//      ** After the 3 seconds past, the new question should appear automatically
-//      ** Timer should turn black again and continue with the count down
-//  * After 5 questions, the following message appears:
-//      ** All done!
-//      ** Your final score is 22 (those are the seconds remaining)
-//      ** Enter Initials: (followed by a field and a "Submit" button next to it)
-//      ** When box is selected, the borders change to blue
-//      ** When the mouse hovers on the button, it changes color to slightly lighter
-//      ** When the button is clicked, the shaded borders on the field box turn back to normal color but the border on the button change to the same blue color
-//      ** After the "click", the following message appears:
-//          *** Highscores
-//          *** Position, followed by initials, followed by score
-//          *** Two buttons below everything, "Go Back" and "Clear Highscores"
-
-// Variable
 var body = document.body;
 var startButton = document.getElementById('start-quiz');
 var timerElement = document.getElementById('timerId');
@@ -92,10 +58,6 @@ questions.forEach(question => {
 function changeContent() {
     if (index >= questions.length) {
         endQuiz();
-
-        console.log(timeLeft); // Debugging statement
-        console.log(timeInterval); // Debugging statement
-
     } else {
         containerElement.textContent = ""
         var title = document.createElement('h1')
@@ -130,7 +92,9 @@ function changeContent() {
                 index++
                 questionsElement.textContent = ""
                 changeContent()
-                countdown(timeLeft)
+                if (index < questions.length) {
+                    countdown(timeLeft)
+                }
             }, 2000)
         }
 
@@ -189,13 +153,11 @@ function changeContent() {
             hold()
             if (questions[index].choices[3] === ans) {
                 ans04.setAttribute("style", "border:#28ff06 solid 3px;");
-                correct()
-                    ;
+                correct();
             } else {
                 ans04.setAttribute("style", "border:red solid 3px;");
                 questionsElement.children[4].setAttribute("style", "border:red solid 3px;")
-                incorrect()
-                    ;
+                incorrect();
             }
         });
     }
@@ -227,10 +189,6 @@ function countdown(initialTime) {
 
 function endQuiz() {
     clearInterval(timeInterval)
-    
-    console.log(timeLeft) // Debugging statement
-    console.log(timeInterval) // Debugging statement
-
     containerElement.textContent = "All Done!!!"
     questionsElement.textContent = "Your final score is: " + timeLeft
     rightWrong.textContent = ""
@@ -244,7 +202,7 @@ function endQuiz() {
         if (initials !== "") {
             // Save the final score and initials to local storage
             var highscoresArray = JSON.parse(localStorage.getItem("highscores")) || [];
-            highscoresArray.push({ score: timeLeft,  initials: initials});
+            highscoresArray.push({ score: timeLeft, initials: initials });
             localStorage.setItem("highscores", JSON.stringify(highscoresArray));
 
             // Navigate to highscores.html
@@ -255,22 +213,8 @@ function endQuiz() {
     });
 }
 
-// function submit() {
-//     document.getElementById("submit").setAttribute("type", "button");
-//     // Once initial have been input and "submit" button clicked, the information should be stored locally and added to the "highscoresArray"
-//     // I need to make this button dissapear from the begining and appear only after the game has ended
-//     // After the "submit" button is clicked, it takes you inmediatelly to the highscore page
-//     // If time runs out and the game is over that way, the highscores link should be visible
-// }
-
-
-// Special Functions (like eventlisteners)
-
-// Add the event listener only if the element exists
 startButton.addEventListener("click", function () {
     countdown(75);
     changeContent();
     action();
 });
-
-// Business Logic (anything that can start the applications)
