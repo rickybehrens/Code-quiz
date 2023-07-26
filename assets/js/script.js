@@ -118,15 +118,6 @@ function changeContent() {
             rightWrong.setAttribute("style", "border-top:grey 2px solid; padding-top:20px; margin:20px 0px 0px 300px; width:50%");
             clearInterval(timeInterval);
             incorrectSound.play()
-            timeLeft = timeLeft - 15;
-            if (timeLeft <= 0) {
-                alert('Game Over!!! Time is Up!!!');
-                clearInterval(timeInterval);
-                timerElement.textContent = 'Time: 0';
-                window.location.href = "./highscores.html";
-            }
-            timerElement.textContent = 'Time: ' + timeLeft;
-
             if (ans === ans01.textContent) {
                 ans01.setAttribute("style", "border:#28ff06 solid 3px;");
             } else if (ans === ans02.textContent) {
@@ -136,6 +127,14 @@ function changeContent() {
             } else {
                 ans04.setAttribute("style", "border:#28ff06 solid 3px;");
             }
+            timeLeft = timeLeft - 15;
+            if (timeLeft <= 0) {
+                alert('Game Over!!! Time is Up!!!');
+                clearInterval(timeInterval);
+                timerElement.textContent = 'Time: 0';
+                window.location.href = "./highscores.html";
+            }
+            timerElement.textContent = 'Time: ' + timeLeft;
         }
 
         // First button in my multiple choice question
