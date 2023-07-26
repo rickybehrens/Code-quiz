@@ -1,14 +1,3 @@
-// write a function that can arrange the variables in an array by ResizeObserverSize
-// organize them in decending order
-// store the top 10 locally
-
-
-// example: [30, 33, 70, 50, 60, 40, 20, 74, 68, 58]
-// output: [74, 70, 68, 60, 58, 50, 40, 33, 30, 20]
-
-// get score and initials from the submit button in the other .js file
-// create an array with all the stored initials and time (probably concatinating the array)
-
 // Variables
 var highscoresArray = []
 
@@ -30,10 +19,15 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+// Clears the local memory and therefore all the previous highscores
 function clearHighscores() {
-  localStorage.removeItem("highscores");
-  var topScores = document.getElementById('topScores');
-  topScores.innerHTML = "";
+  if (confirm("Are you sure you would like to permanently clear all highscores?")) {
+    localStorage.removeItem("highscores");
+    var topScores = document.getElementById('topScores');
+    topScores.innerHTML = "";
+  } else {
+    return;
+  }
 }
 // Special functions
 
