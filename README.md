@@ -1,6 +1,9 @@
 # Code-quiz
 04 Web APIs: Code Quiz
 
+## Link to the deployed URL
+https://rickybehrens.github.io/Code-quiz/index.html
+
 ## Quiz Info
 
 ```
@@ -34,3 +37,13 @@ The "Go Back" button will take you back to the home page of the quiz.
 
 The "Clear Highscores" button will clear the local memory ereasing permanently all scores until that point, but not beofre asking if the user really would like to perform said action.
 ```
+
+## Screen Shots of the Quiz
+<img src="./assets/images/01.png">
+<img src="./assets/images/02.png">
+<img src="./assets/images/03.png">
+<img src="./assets/images/04.png">
+<img src="./assets/images/05.png">
+<img src="./assets/images/06.png">
+<img src="./assets/images/07.png">
+
